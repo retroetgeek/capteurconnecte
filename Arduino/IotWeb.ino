@@ -30,6 +30,13 @@ bool miseAJourTimeWeb(void *){
     return true; // repeter
 }
 
+// Fonction de réinitialisation de la carte ESP8266
+bool resetESP8266(void *) {
+  ESP.reset();
+  delay(5000); // Attendre 5 secondes pour la réinitialisation
+  return true; // repeter
+}
+
 void setup() {
   Serial.begin(115200);  
   //connexion au wifi
@@ -53,6 +60,8 @@ void setup() {
   // creation d'un timer d'envoie serveur
   timer.every(301000, envoieServeur);
 
+// Création d'un timer pour la réinitialisation tous les 4 jours (4 jours = 345600000 millisecondes)
+  timer.every(345600000, resetESP8266);
 //timer.every(302000, testServeur); 
 }
 
